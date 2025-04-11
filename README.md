@@ -50,14 +50,6 @@ try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
 ---
 
-### 🚀 Sugestões de Melhoria
-
-- Refatorar o código usando **métodos genéricos** e **expressões lambda** para evitar duplicação (como apresentado anteriormente).
-- Criar uma classe utilitária para leitura genérica de arquivos.
-- Adicionar validação de entrada para conversões (ex: tratar `NumberFormatException` ao fazer `parseInt`).
-
----
-
 ### 💡 Exemplo de Saída
 
 ```text
