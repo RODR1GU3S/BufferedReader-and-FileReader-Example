@@ -1,84 +1,73 @@
-# 📄 Leitura de Arquivos com `BufferedReader` e `FileReader` em Java
+## 📄 Leitura de Arquivos com `BufferedReader` e `FileReader` em Java
 
-Este projeto demonstra como utilizar as classes `BufferedReader` e `FileReader` para ler arquivos texto linha por linha em Java.
-
-## 💡 Objetivo
-
-Ler um arquivo texto (`in.txt`) e armazenar cada linha em uma lista. Em seguida, exibir cada linha no console.
+Este projeto demonstra a leitura de arquivos de texto utilizando as classes `BufferedReader` e `FileReader` em Java.
+O programa realiza duas leituras distintas: uma de um arquivo com conteúdo do tipo `String`, e outra de um arquivo contendo números inteiros (`Integer`), exibindo cada item lido no console.
 
 ---
 
-## 🛠️ Técnicas Utilizadas
+### ✅ Técnicas e Conceitos Aplicados
 
-### `FileReader`
+#### 1. **Leitura de Arquivos com `BufferedReader`**
+- Utilização do `BufferedReader` em conjunto com `FileReader` para realizar a leitura de arquivos linha por linha.
+- Esta abordagem é eficiente para leitura de grandes volumes de dados, pois o `BufferedReader` faz leitura em buffer, reduzindo o acesso ao disco.
 
-A classe `FileReader` é usada para abrir e ler o conteúdo de um arquivo caractere por caractere.
- Ela serve como ponte entre o arquivo e o Java, permitindo acessar os dados de forma básica.
-
-### `BufferedReader`
-
-A classe `BufferedReader` envolve o `FileReader` e adiciona uma camada de buffer.
- Isso significa que os dados são lidos em blocos maiores e armazenados em memória temporariamente, o que melhora o desempenho em relação à leitura caractere por caractere.
-
-Além disso, o `BufferedReader` fornece métodos convenientes, como:
-
-- `readLine()`: Lê uma linha inteira do arquivo por vez (até encontrar `\n` ou o fim do arquivo).
-
----
-
-## 📌 Funcionamento do Código
+#### 2. **Tratamento de Exceções com `try-with-resources`**
+- A estrutura `try-with-resources` garante que os recursos (neste caso, o `BufferedReader`) sejam automaticamente fechados após a leitura, mesmo que ocorra uma exceção.
+- Isso evita vazamentos de recursos e torna o código mais limpo e seguro.
 
 ```java
 try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-    String line = br.readLine();
-    while(line != null) {
-        list.add(line);
-        line = br.readLine();
-    }
+    // leitura
 }
 ```
 
-### Etapas:
-1. Define-se o caminho do arquivo.
-2. Cria-se um `BufferedReader` envolto em um `FileReader`.
-3. Usa-se `readLine()` em um laço `while` para ler cada linha até o final do arquivo.
-4. Cada linha lida é adicionada a uma lista de strings.
-5. Fora do bloco `try`, todas as linhas armazenadas são exibidas no console.
+#### 3. **Armazenamento em Listas Genéricas (`List<String>` e `List<Integer>`)**
+- As linhas lidas são armazenadas em coleções do tipo `List` para posterior manipulação ou exibição.
+- Uso de `ArrayList` por ser uma implementação simples e eficiente para leitura sequencial.
+
+#### 4. **Conversão de Dados (`String` → `Integer`)**
+- Os dados lidos como `String` são convertidos para `Integer` usando `Integer.parseInt()`, permitindo o processamento de dados numéricos.
+- Essa conversão é feita dentro do laço de leitura, logo após a leitura de cada linha.
+
+#### 5. **Estrutura de Controle (`while` loop)**
+- Utilização de um laço `while` para percorrer todas as linhas do arquivo até encontrar o final (`null`).
+- Técnica eficiente e direta para ler até o final de um arquivo.
 
 ---
 
-## ✅ Benefícios do Uso de `BufferedReader` com `FileReader`
+### 📁 Estrutura Esperada dos Arquivos
 
-- **Eficiência**: O `BufferedReader` reduz chamadas ao sistema de arquivos, tornando a leitura mais rápida.
-- **Facilidade**: O método `readLine()` simplifica a leitura por linha.
-- **Leitura Segura**: O bloco `try-with-resources` garante o fechamento automático do arquivo, mesmo em caso de exceções.
-- **Flexibilidade**: As linhas são armazenadas em uma lista, possibilitando processamento posterior com facilidade.
+- `in.String.txt`: Arquivo de texto onde cada linha contém uma `String`.
+- `in.Integer.txt`: Arquivo de texto onde cada linha contém um número inteiro válido.
 
 ---
 
-## 📂 Exemplo de Arquivo `in.txt`
+### 🧼 Boas Práticas Aplicadas
 
+- **Separação de responsabilidades**: cada bloco de leitura trata de um tipo específico de dado.
+- **Tratamento de erros**: o programa captura e exibe mensagens de erro caso a leitura do arquivo falhe.
+- **Código comentado**: todas as etapas estão devidamente comentadas para facilitar o entendimento.
+
+---
+
+### 🚀 Sugestões de Melhoria
+
+- Refatorar o código usando **métodos genéricos** e **expressões lambda** para evitar duplicação (como apresentado anteriormente).
+- Criar uma classe utilitária para leitura genérica de arquivos.
+- Adicionar validação de entrada para conversões (ex: tratar `NumberFormatException` ao fazer `parseInt`).
+
+---
+
+### 💡 Exemplo de Saída
+
+```text
+Conteúdo de in.String.txt:
+João
+Maria
+Carlos
+
+Conteúdo de in.Integer.txt:
+10
+20
+30
 ```
-João Silva,joao@gmail.com
-Maria Oliveira,maria@hotmail.com
-Carlos Souza,carlos@yahoo.com
-```
-
----
-
-## 🧪 Saída Esperada
-
-```
-Leitura da linha: João Silva,joao@gmail.com
-Leitura da linha: Maria Oliveira,maria@hotmail.com
-Leitura da linha: Carlos Souza,carlos@yahoo.com
-```
-
----
-
-## 🧠 Conclusão
-
-A combinação de `FileReader` com `BufferedReader` é uma prática eficiente e comum em Java para leitura de arquivos texto.
- Ela é especialmente útil em cenários onde é necessário processar grandes quantidades de dados de forma performática e organizada.
-
----
